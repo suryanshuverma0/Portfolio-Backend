@@ -28,7 +28,13 @@ app.use(express.json());
 // app.use(cors());
 app.use(
   cors({
-    origin: ["https://suryanshuverma.com.np", "http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+
+      "https://suryanshuverma.com.np",
+
+      "https://www.suryanshuverma.com.np",
+    ],
 
     credentials: true,
   }),
