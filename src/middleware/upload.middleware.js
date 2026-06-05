@@ -1,54 +1,32 @@
 import multer from "multer";
 
-import {
-  CloudinaryStorage,
-} from "multer-storage-cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 import cloudinary from "../config/cloudinary.js";
 
-const storage =
-  new CloudinaryStorage({
+const storage = new CloudinaryStorage({
+  cloudinary,
 
-    cloudinary,
+  params: async (req, file) => {
+    const isPdf = file.mimetype === "application/pdf";
 
-    params: async (
-      req,
-      file
-    ) => {
+    return {
+      folder: "portfolio-projects",
 
-      const isPdf =
+      resource_type: "auto",
 
-        file.mimetype ===
-        "application/pdf";
+      use_filename: true,
 
-      return {
+      unique_filename: false,
 
-        folder:
-          "portfolio-projects",
-
-        resource_type:
-          isPdf
-            ? "raw"
-            : "image",
-
-        allowed_formats:
-          isPdf
-
-            ? ["pdf"]
-
-            : [
-
-                "jpg",
-                "png",
-                "jpeg",
-                "webp",
-              ],
-      };
-    },
-  });
+      ...(isPdf && {
+        format: "pdf",
+      }),
+    };
+  },
+});
 
 const upload = multer({
-
   storage,
 });
 

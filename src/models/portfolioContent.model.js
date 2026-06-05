@@ -23,16 +23,27 @@ const portfolioContentSchema = new mongoose.Schema(
         default: "",
       },
 
-      resumeUrl: {
-        type: String,
-        default: "",
-      },
+     
 
       titles: [
         {
           type: String,
         },
       ],
+
+      metrics: [
+        {
+          label: String,
+
+          value: String,
+        },
+      ],
+
+      availability: {
+        type: String,
+
+        default: "Open to opportunities",
+      },
     },
 
     about: {
@@ -56,43 +67,81 @@ const portfolioContentSchema = new mongoose.Schema(
       {
         title: String,
 
-        icon: String,
+        logo: String,
+
+        category: String,
+
+        level: Number,
+
+        years: String,
+
+        featured: {
+          type: Boolean,
+
+          default: false,
+        },
       },
     ],
 
- services: [
+    services: [
+      {
+        title: String,
 
-  {
+        shortDescription: String,
 
-    title: String,
+        description: String,
 
-    description: String,
+        image: String,
 
-    icon: String,
-  },
-],
+        category: String,
+
+        technologies: [String],
+
+        featured: {
+          type: Boolean,
+
+          default: false,
+        },
+
+        accentColor: {
+          type: String,
+
+          default: "blue",
+        },
+      },
+    ],
 
     experiences: [
+      {
+        role: String,
 
-  {
+        company: String,
 
-    role: String,
+        description: String,
 
-    company: String,
+        startDate: String,
 
-    description: String,
+        endDate: String,
 
-    duration: String,
+        employmentType: String,
 
-    location: String,
+        location: String,
 
-    logo: String,
+        logo: String,
 
-    company_url: String,
+        company_url: String,
 
-    certificate_url: String,
-  },
-],
+        certificate_url: String,
+
+        technologies: [String],
+
+        featured: {
+          type: Boolean,
+
+          default: false,
+        },
+      },
+    ],
 
     socialLinks: {
       linkedin: String,

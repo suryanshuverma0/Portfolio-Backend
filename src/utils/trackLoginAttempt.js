@@ -1,29 +1,17 @@
-import Analytics from "../models/analytics.model.js";
-
 import { UAParser } from "ua-parser-js";
 
 import geoip from "geoip-lite";
 
-const trackAnalytics =
-  async (
+import LoginAttempt from "../models/loginAttempt.model.js";
+
+const trackLoginAttempt =
+  async ({
     req,
-    res,
-    next
-  ) => {
+    email,
+    success,
+  }) => {
 
     try {
-
-      /* SKIP ADMIN + ANALYTICS */
-
-      if (
-
-        req.originalUrl.includes("/admin") ||
-
-        req.originalUrl.includes("/api/v1/analytics")
-      ) {
-
-        return next();
-      }
 
       /* USER AGENT */
 
@@ -48,31 +36,16 @@ const trackAnalytics =
 
         "Unknown";
 
-      /* GEO LOCATION */
+      /* GEO */
 
       const geo =
         geoip.lookup(ip);
 
-      /* SOURCE */
+      await LoginAttempt.create({
 
-      const source =
+        email,
 
-        req.query.source ||
-
-        "direct";
-
-      /* SESSION */
-
-      const sessionId =
-
-        req.headers["x-session-id"] ||
-
-        "anonymous";
-
-      await Analytics.create({
-
-        path:
-          req.originalUrl,
+        success,
 
         ip,
 
@@ -100,27 +73,16 @@ const trackAnalytics =
           result.device.type ||
 
           "Desktop",
-
-        referrer:
-
-          req.headers.referer ||
-
-          "Direct",
-
-        source,
-
-        sessionId,
       });
 
     } catch (error) {
 
       console.error(
-        "Analytics Error:",
+        "Login Tracking Error:",
         error
       );
     }
-
-    next();
   };
 
-export default trackAnalytics;
+export default trackLoginAttempt;
+

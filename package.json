@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "engines": {
-  "node": "20.x"
-},
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
@@ -23,6 +23,7 @@
     "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
     "express-rate-limit": "^8.5.2",
+    "geoip-lite": "^1.4.10",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.24.0",

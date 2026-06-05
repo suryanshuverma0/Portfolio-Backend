@@ -2,231 +2,288 @@ import PortfolioContent from "../models/portfolioContent.model.js";
 
 /* GET PORTFOLIO CONTENT */
 
-export const getPortfolioContent =
-  async (
-    req,
-    res
-  ) => {
+export const getPortfolioContent = async (req, res) => {
+  try {
+    let content = await PortfolioContent.findOne();
 
-    try {
+    /* CREATE DEFAULT DOC */
 
-      let content =
-        await PortfolioContent.findOne();
+    if (!content) {
+      content = await PortfolioContent.create({
+        hero: {
 
-      /* CREATE DEFAULT DOC */
+  name: "Suryanshu Verma",
 
-      if (!content) {
+  subtitle:
+    "Computer Engineer • MERN Developer • Backend Focused Builder",
 
-        content =
-          await PortfolioContent.create({
+  description:
+    "Focused on building scalable backend systems, production-oriented MERN applications, and practical blockchain solutions with strong emphasis on engineering fundamentals and real-world problem solving.",
 
-            hero: {
+  heroImage: "",
 
-              name:
-                "Suryanshu Verma",
+  titles: [
 
-              titles: [
+    "MERN Stack Developer",
 
-                "Software Developer",
+    "Backend Engineer",
 
-                "MERN Stack Developer",
+    "Blockchain Developer",
+  ],
 
-                "Blockchain Developer",
-              ],
+  metrics: [
 
-              resumeUrl: "",
-            },
+    {
+      label: "Projects Built",
+      value: "10+",
+    },
 
-            about: {
+    {
+      label: "Tech Stack",
+      value: "MERN + Web3",
+    },
 
-              description:
-                "Computer Engineering Student passionate about full stack and blockchain development.",
-            },
+    {
+      label: "Experience",
+      value: "Frontend Internship",
+    },
+  ],
 
-            education: [
+  availability:
+    "Open to remote opportunities",
+},
 
-              {
+        about: {
+          description:
+            "Computer Engineering Student passionate about full stack and blockchain development.",
+        },
 
-                title:
-                  "Khwopa Secondary School",
+        education: [
+          {
+            title: "Khwopa Secondary School",
 
-                description:
-                  "Graduated with strong academic performance in Computer Science.",
+            description:
+              "Graduated with strong academic performance in Computer Science.",
 
-                status:
-                  "Higher Secondary",
-              },
-
-              {
-
-                title:
-                  "Advanced College of Engineering and Management",
-
-                description:
-                  "Currently pursuing Computer Engineering.",
-
-                status:
-                  "Bachelor's Degree",
-              },
-            ],
-
-            skills: [
-
-              {
-                title: "React",
-                icon: "react",
-              },
-
-              {
-                title: "Node.js",
-                icon: "node",
-              },
-
-              {
-                title: "MongoDB",
-                icon: "mongodb",
-              },
-
-              {
-                title: "Solidity",
-                icon: "solidity",
-              },
-            ],
-
-            services: [
-
-              {
-
-                title:
-                  "MERN Stack Development",
-
-                description:
-                  "Building scalable full stack web applications.",
-              },
-            ],
-
-            socialLinks: {
-
-              linkedin: "",
-
-              github: "",
-
-              twitter: "",
-
-              instagram: "",
-
-              facebook: "",
-
-              email: "",
-            },
-
-            navbarSections: [
-
-              {
-                label: "Home",
-                sectionId: "home",
-              },
-
-              {
-                label: "About",
-                sectionId: "about",
-              },
-
-              {
-                label: "Experience",
-                sectionId: "experience",
-              },
-
-              {
-                label: "Skills",
-                sectionId: "skills",
-              },
-
-              {
-                label: "Services",
-                sectionId: "services",
-              },
-
-              {
-                label: "Projects",
-                sectionId: "projects",
-              },
-
-              {
-                label: "Contact",
-                sectionId: "contact",
-              },
-            ],
-          });
-      }
-
-      res.status(200).json({
-
-        success: true,
-
-        content,
-      });
-
-    } catch (error) {
-
-      console.error(error);
-
-      res.status(500).json({
-
-        success: false,
-
-        message:
-          "Failed to fetch portfolio content",
-      });
-    }
-  };
-
-  /* UPDATE PORTFOLIO CONTENT */
-
-export const updatePortfolioContent =
-  async (
-    req,
-    res
-  ) => {
-
-    try {
-
-      const updatedContent =
-        await PortfolioContent.findOneAndUpdate(
-
-          {},
-
-          req.body,
+            status: "Higher Secondary",
+          },
 
           {
+            title: "Advanced College of Engineering and Management",
 
-            new: true,
+            description: "Currently pursuing Computer Engineering.",
 
-            upsert: true,
-          }
-        );
+            status: "Bachelor's Degree",
+          },
+        ],
 
-      res.status(200).json({
+        skills: [
+          {
+            title: "ReactJS",
 
-        success: true,
+            logo: "",
 
-        message:
-          "Portfolio content updated successfully",
+            category: "Frontend",
 
-        content:
-          updatedContent,
-      });
+            level: 90,
 
-    } catch (error) {
+            years: "2+ Years",
 
-      console.error(error);
+            featured: true,
+          },
 
-      res.status(500).json({
+          {
+            title: "Node.js",
 
-        success: false,
+            logo: "",
 
-        message:
-          "Failed to update portfolio content",
+            category: "Backend",
+
+            level: 88,
+
+            years: "2+ Years",
+
+            featured: true,
+          },
+
+          {
+            title: "MongoDB",
+
+            logo: "",
+
+            category: "Database",
+
+            level: 85,
+
+            years: "2+ Years",
+
+            featured: false,
+          },
+
+          {
+            title: "Solidity",
+
+            logo: "",
+
+            category: "Blockchain",
+
+            level: 75,
+
+            years: "1+ Years",
+
+            featured: true,
+          },
+        ],
+
+        services: [
+          {
+            title: "MERN Stack Development",
+
+            shortDescription: "Scalable full stack applications",
+
+            description:
+              "Building production-oriented MERN stack applications with scalable backend architecture, authentication systems, dashboards, analytics, and cloud integrations.",
+
+            image: "",
+
+            category: "Full Stack Development",
+
+            technologies: ["React", "Node.js", "Express", "MongoDB"],
+
+            featured: true,
+
+            accentColor: "blue",
+          },
+        ],
+
+        experiences: [
+          {
+            role: "ReactJS Frontend Developer Intern",
+
+            company: "CyberArrow",
+
+            description:
+              "Worked on frontend performance optimization, reusable ReactJS components, and production-level UI improvements while collaborating with senior developers.",
+
+            startDate: "Jan 2025",
+
+            endDate: "Jun 2025",
+
+            employmentType: "Internship",
+
+            location: "Dubai, United Arab Emirates",
+
+            logo: "",
+
+            company_url: "",
+
+            certificate_url: "",
+
+            technologies: ["ReactJS", "JavaScript", "Frontend Optimization"],
+
+            featured: true,
+          },
+        ],
+
+        socialLinks: {
+          linkedin: "",
+
+          github: "",
+
+          twitter: "",
+
+          instagram: "",
+
+          facebook: "",
+
+          email: "",
+        },
+
+        navbarSections: [
+          {
+            label: "Home",
+            sectionId: "home",
+          },
+
+          {
+            label: "About",
+            sectionId: "about",
+          },
+
+          {
+            label: "Experience",
+            sectionId: "experience",
+          },
+
+          {
+            label: "Skills",
+            sectionId: "skills",
+          },
+
+          {
+            label: "Services",
+            sectionId: "services",
+          },
+
+          {
+            label: "Projects",
+            sectionId: "projects",
+          },
+
+          {
+            label: "Contact",
+            sectionId: "contact",
+          },
+        ],
       });
     }
-  };
+
+    res.status(200).json({
+      success: true,
+
+      content,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+
+      message: "Failed to fetch portfolio content",
+    });
+  }
+};
+
+/* UPDATE PORTFOLIO CONTENT */
+
+export const updatePortfolioContent = async (req, res) => {
+  try {
+    const updatedContent = await PortfolioContent.findOneAndUpdate(
+      {},
+
+      req.body,
+
+      {
+        new: true,
+
+        upsert: true,
+      },
+    );
+
+    res.status(200).json({
+      success: true,
+
+      message: "Portfolio content updated successfully",
+
+      content: updatedContent,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+
+      message: "Failed to update portfolio content",
+    });
+  }
+};

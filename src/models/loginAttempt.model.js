@@ -1,11 +1,15 @@
-
 import mongoose from "mongoose";
 
-const analyticsSchema =
+const loginAttemptSchema =
   new mongoose.Schema(
     {
-      path: {
+      email: {
         type: String,
+      },
+
+      success: {
+        type: Boolean,
+        default: false,
       },
 
       ip: {
@@ -36,25 +40,6 @@ const analyticsSchema =
         type: String,
         default: "Desktop",
       },
-
-      referrer: {
-        type: String,
-        default: "Direct",
-      },
-
-      source: {
-        type: String,
-        default: "direct",
-      },
-
-      sessionId: {
-        type: String,
-      },
-
-      duration: {
-        type: Number,
-        default: 0,
-      },
     },
 
     {
@@ -62,10 +47,11 @@ const analyticsSchema =
     }
   );
 
-const Analytics =
+const LoginAttempt =
   mongoose.model(
-    "Analytics",
-    analyticsSchema
+    "LoginAttempt",
+    loginAttemptSchema
   );
 
-export default Analytics;
+export default LoginAttempt;
+
